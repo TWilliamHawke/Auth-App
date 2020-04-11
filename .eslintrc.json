@@ -1,0 +1,23 @@
+{
+  "env": {
+      "browser": true,
+      "node": true,
+      "commonjs": true,
+      "es6": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:node/recommended",
+    "plugin:react/recommended"
+  ],
+  "ignorePatterns": ["/client"],
+  "globals": {
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+      "ecmaVersion": 2018
+  },
+  "rules": {
+  }
+}

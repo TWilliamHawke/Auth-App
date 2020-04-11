@@ -1,0 +1,42 @@
+.navbar {
+  width: 100%;
+  display: flex;
+  background: rgb(51, 103, 214);
+  color: #fff;
+  padding: 10px 0;
+  justify-content: flex-end;
+}
+
+.navbar ul {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navbar li {
+  list-style: none;
+  margin-left: 25px;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  height: 32px;
+}
+
+svg.fa-cog {
+  margin-left: 5px;
+}
+
+li:last-child {
+  margin-right: 15px;
+}
+
+.avatar-mini {
+  height: 32px;
+  width: 32px;
+  margin-right: 5px;
+  border-radius: 50px;
+}
+

@@ -1,0 +1,72 @@
+.auth input {
+  display: block;
+  width: 100%;
+}
+.user-input:focus {
+  outline: none;
+  border-bottom-width: 3px;
+}
+
+.user-input {
+  font-size: 20px;
+  margin-bottom: 15px;
+  padding: 5px;
+  background-color: inherit;
+  box-shadow: none;
+  border: none;
+  border-bottom: 1px solid rgb(0, 174, 255);
+
+}
+
+
+.auth-wrapper input:nth-last-child(2){
+  margin-top: 15px;
+}
+
+.auth-wrapper {
+  text-align: left;
+  margin: 0 auto;
+  width: 500px;
+  background: rgb(248, 237, 222);
+  padding: 20px;
+  box-shadow: 0 0 10px black;
+}
+
+.auth .alert {
+  font-weight: 700;
+  color: red;
+  margin: 5px 0;
+}
+
+.auth {
+  flex-direction: column;
+}
+.auth .sendBtn {
+  display: block;
+  margin: 0 auto;
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background: rgb(0, 174, 255);
+  width: initial;
+  padding: 10px 20px;
+  color: white;
+  margin: 0 auto;
+  box-shadow: 1px 1px 3px rgb(0, 0, 0);
+}
+
+#email {
+  margin-bottom: 0px;
+}
+
+#email + label {
+  font-size: 10px;
+}
+
+.alert {
+  color: red;
+  font-weight: 700;
+  font-size: 14px;
+  margin: 0;
+}
