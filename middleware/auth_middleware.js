@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
 
 try {
   const token = req.headers.authorization.split(' ')[1]
-  if(!token) return res.status(401).json({message: 'You are not authorise'})
+  if(!token) return res.status(401).json({message: 'Wrong toeken data'})
 
   const decoded = jwt.verify(token, config.get('secret'))
   req.user = decoded
@@ -15,7 +15,7 @@ try {
 
 } catch(e) {
   console.log(e)
-  return res.status(401).json({message: 'You are not authorise'})
+  return res.status(401).json({message: 'Wrong toeken data'})
 
 }
 

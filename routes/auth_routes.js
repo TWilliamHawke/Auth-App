@@ -37,7 +37,7 @@ try{
   res.status(201).json(user)
 
 } catch(e) {
-  res.status(400).json({message: 'error'})
+  res.status(500).json({message: 'error'})
 }
 })
 
@@ -66,7 +66,7 @@ router.post('/login', [], async (req, res) => {
 
   } catch(e) {
     console.log(e)
-    res.status(400).json({message: 'error'})
+    res.status(500).json({message: 'error'})
   }
 })
 

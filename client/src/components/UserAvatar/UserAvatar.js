@@ -7,7 +7,7 @@ import { UserContext } from '../../context/UserContext';
 
 const UserAvatar = () => {
   const {getToken, data, saveData} = useContext(UserContext)
-  const [doFetch, response, loading, error] = useFetch('/api/user')
+  const [doFetch, response, loading] = useFetch('/api/user')
 
   const fileHandler = async e => {
     const file = e.target.files[0]
@@ -23,11 +23,6 @@ const UserAvatar = () => {
       data: formData
     })
   }
-
-  useEffect(() => {
-    if(!error) return
-    console.log(error)
-  }, [error])
 
   useEffect(() => {
     if(!response) return

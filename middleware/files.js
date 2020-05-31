@@ -22,6 +22,7 @@ const fileFilter = (req, file, cb) => {
     }
   
   } catch(e) {
+    cb(new Error('Something strange with file type'))
     console.log(e)
   }
 }

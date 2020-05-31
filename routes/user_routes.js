@@ -17,7 +17,7 @@ try {
   res.json({path: req.file.path})
 } catch(e) {
   console.log(e)
-  res.status(401).json({message: 'invalid images'})
+  res.status(500).json({message: 'invalid images'})
 }
 })
 
@@ -41,7 +41,7 @@ router.put('/', auth, [check('name').isLength({min: 2})] , async(req, res) => {
 
   } catch(e) {
     console.log(e)
-    res.status(401).json({message: 'something went wrong'})
+    res.status(500).json({message: 'something went wrong'})
   }
 })
 
@@ -54,7 +54,7 @@ router.delete('/', auth, async (req, res) => {
 
   } catch(e) {
     console.log(e)
-    res.status(401).json({message: 'deleting error'})
+    res.status(500).json({message: 'deleting error'})
 
   }
 })
