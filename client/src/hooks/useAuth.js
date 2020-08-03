@@ -69,7 +69,6 @@ const useAuth = () => {
     if(data) {
       requestNewToken()
         .then(() => {
-          console.log(data);
 
           setData(data)
           setIsReady(true)

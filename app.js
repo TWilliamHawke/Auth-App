@@ -4,6 +4,7 @@ const auth = require('./routes/auth_routes')
 const config = require('config')
 const user = require('./routes/user_routes')
 const path = require('path')
+const { ioInit } = require('./ioSocket')
 
 const app = express()
 app.use(express.json({ extended: true }))
@@ -22,8 +23,8 @@ const start = async () => {
     await mongoose.connect(url, {
       useNewUrlParser: true, useUnifiedTopology: true
     })
-    app.listen(5000, () => console.log('server has running'))
-
+    const server = app.listen(5000, () => console.log('server has running'))
+    ioInit(server)
   } catch (e) {
     console.log(e)
     
