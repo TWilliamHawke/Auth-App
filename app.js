@@ -22,7 +22,7 @@ const start = async () => {
     await mongoose.connect(url, {
       useNewUrlParser: true, useUnifiedTopology: true
     })
-    app.listen(5000, () => console.log('servet has running'))
+    app.listen(5000, () => console.log('server has running'))
 
   } catch (e) {
     console.log(e)

@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs')
 const config = require('config')
 const { validationResult, check } = require('express-validator')
 const jwt = require('jsonwebtoken')
+const Session = require('../models/sessions')
 
 const router = Router()
 
@@ -58,11 +59,19 @@ router.post('/login', [], async (req, res) => {
 
     const token = jwt.sign({id: user._id}, config.get('secret'), {expiresIn: '1h'})
     const refToken = jwt.sign({id: user._id}, config.get('secretRef'))
-    const tokenDie = Date.now() + 3000*1000
+    const expiresIn = Date.now() + 3000*1000
+
+    const sessions = await Session.find({user: user._id})
+    if(sessions.length > 4) {
+      await Session.deleteMany({user: user._id})
+    }
+
+    const session = new Session({user: user._id, date: expiresIn})
+    await session.save()
 
 
     res.json({userData: {name: user.name, avatar: user.avatar, email},
-              tokenData: {token, refToken, tokenDie}})
+              tokenData: {token, refToken: session._id, expiresIn}})
 
   } catch(e) {
     console.log(e)
@@ -72,20 +81,26 @@ router.post('/login', [], async (req, res) => {
 
 router.post('/refresh', async(req, res) => {
   try {
-    const {refToken} = req.body
+    const {refToken, date} = req.body
+    const session = await Session.findById(refToken)
+
+    if(!session || session.date !== date) {
+      await Session.findByIdAndDelete(refToken)
+      return res.status(401).json({message: 'You are not authorise'})
+    }
 
 
-    const {id} = jwt.verify(refToken, config.get('secretRef'))
+    const token = jwt.sign({id: session.user}, config.get('secret'), {expiresIn: '1h'})
+    const expiresIn = Date.now() + 3000*1000
 
-    const newRef = jwt.sign({id}, config.get('secretRef'))
-    const token = jwt.sign({id}, config.get('secret'), {expiresIn: '1h'})
-    const tokenDie = Date.now() + 3000*1000
+    session.date = expiresIn
+    await session.save()
 
-    res.json({token, refToken: newRef, tokenDie})
+    res.json({token, refToken, expiresIn})
   
   }catch(e) {
     console.log(e)
-    return res.status(401).json({message: 'You are not authorise'})
+    return res.status(401).json({message: 'Some server error'})
   }
 })
 

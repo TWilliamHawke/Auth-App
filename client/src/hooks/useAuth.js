@@ -24,12 +24,13 @@ const useAuth = () => {
 
   const requestNewToken = useCallback(async () => {
     
-    const {refToken} = JSON.parse(localStorage.getItem('tokens'))
+    const {refToken, expiresIn} = JSON.parse(localStorage.getItem('tokens'))
 
     const tokens = await doFetch({
       method: 'post',
       data: {
-        refToken
+        refToken,
+        date: expiresIn
       }
     })
 
@@ -40,9 +41,9 @@ const useAuth = () => {
   const getToken = useCallback(async() => {
     const storageData = localStorage.getItem('tokens')
     if(!storageData) return
-    const {token, tokenDie} = JSON.parse(storageData)
+    const {token, expiresIn} = JSON.parse(storageData)
 
-    if(Date.now() < tokenDie) {
+    if(Date.now() < expiresIn) {
       return `Bearer ${token}`
     } else { //token is die
       console.log('token is died')
